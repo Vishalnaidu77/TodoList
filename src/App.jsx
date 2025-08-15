@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './App.css'
 import AddTodo from './Components/AddTodo'
 import { v4 as uuidv4 } from 'uuid';
@@ -34,6 +34,19 @@ function App() {
           task.id === id ? {...task, failed: true, completed: false} : task
         ))
     }
+
+    useEffect(() => {
+        const saved = localStorage.getItem('tasks')
+        if(saved){
+            setTasks(JSON.parse(saved))
+        }
+    }, [])
+
+    useEffect(() => {
+        if (tasks.length > 0) {
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+        }
+    }, [tasks])
 
     return (
         <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex justify-center py-8'>
