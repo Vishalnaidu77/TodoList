@@ -10,7 +10,8 @@ function App() {
 
     const addTask = (tasktext) => {
       const idx = uuidv4()
-      setTasks([...tasks, {id: idx, text: tasktext, completed: false}])
+      setTasks(prevTask => [{id: idx, text: tasktext, completed: false}, ...prevTask])
+      
     }
 
     const toggleTask = (id) => {
@@ -34,8 +35,8 @@ function App() {
 
   return (
     <>
-    <div className='max-h-[50%] flex justify-center mt-20'>
-        <div className='h-[100%] w-[50%] shadow-xl bg-zinc-100 rounded-2xl flex flex-col items-center py-5 gap-4'>
+    <div className='max-h-[50%] flex justify-center mt-5'>
+        <div className='h-[90%] w-[60%] shadow-xl bg-zinc-100 rounded-2xl flex flex-col items-center py-5 gap-4'>
           <AddTodo onAdd = {addTask}/>
           <TaskList tasks={tasks} onToggle={toggleTask} deleteTodo={deleteTodo} updateTodo={updateTodo} />
         </div>
